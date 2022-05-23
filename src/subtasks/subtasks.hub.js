@@ -1,5 +1,5 @@
 const Fields = require('./subtasks.fields')
-const Service = require('./subtasks.service')
+const Service = require('../services')
 
 module.exports = {
     createSubtask,
@@ -20,7 +20,7 @@ async function createSubtask(req, res) {
             description: fields.description.get()
         }
 
-        res.$data(await Service.createSubtask(data))
+        res.$data(await Service.Subtasks.createSubtask(data))
 
     } catch (error) {
         res.$error(error)
@@ -37,7 +37,7 @@ async function getSubtasks(req, res) {
             status: req.query.status
         }
 
-        res.$data(await Service.getSubtasks(query))
+        res.$data(await Service.Subtasks.getSubtasks(query))
 
     } catch (error) {
         res.$error(error)
@@ -53,7 +53,7 @@ async function getSubtask(req, res) {
             subtaskId: fields.subtaskId.get()
         }
 
-        res.$data(await Service.getSubtask(data.subtaskId))
+        res.$data(await Service.Subtasks.getSubtask(data.subtaskId))
 
     } catch (error) {
         res.$error(error)
@@ -79,7 +79,7 @@ async function updateSubtask(req, res) {
                 data[field] = req.body[field]
         })
         
-        res.$data(await Service.updateSubtask(data.subtaskId, data))
+        res.$data(await Service.Subtasks.updateSubtask(data.subtaskId, data))
 
     } catch (error) {
         res.$error(error)
@@ -95,7 +95,7 @@ async function deleteSubtask(req, res) {
             subtaskId: fields.subtaskId.get()
         }
 
-        res.$data(await Service.deleteSubtask(data.subtaskId))
+        res.$data(await Service.Subtasks.deleteSubtask(data.subtaskId))
 
     } catch (error) {
         res.$error(error)

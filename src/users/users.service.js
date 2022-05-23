@@ -1,8 +1,12 @@
-const Model = require('./users.model')
+const Moment = require('moment')
 const Methods = require('../methods')
+const Encrypt = require('../encrypt')
+const Model = require('./users.model')
 const Messages = require('./users.messages')
+const ServiceSession = require('../services')
 
 module.exports = {
+    loginUser,
     createUser,
     getUsers,
     getUser,
@@ -10,22 +14,33 @@ module.exports = {
     deleteUser
 }
 
-// async function loginUser(data) {
+async function loginUser(data) {
+    try {
 
-//     try {
-//         const user = await Model.findOne({email: data.email}, '+password')
+        const user = await Model.findOne({email: data.email}, '+password')
 
-//         if (!teacher)
-//             throw Messages(data.email).userNotFound
-//         if (!Encrypt.bcryptCompare(data.password, user.password))
-//             throw Messages(data.password).userPasswordError
+        if (!user)
+            throw Messages(data.email).userNotFound
+        if (!Encrypt.bcryptCompare(data.password, user.password))
+            throw Messages(data.password).userPasswordError
         
-        
+        const sessionData = {
+            userId: user._id,
+            token: Encrypt.cryptrString(user._id),
+            expired: Moment().add(5, 'days').toDate()
+        }
 
-//     } catch (error) {
-//         throw error
-//     }
-// }
+        const session = await ServiceSession.Sessions.createSession(sessionData)
+
+        return {
+            user,
+            session
+        }
+
+    } catch (error) {
+        throw error
+    }
+}
 
 async function createUser(data) {
     try {

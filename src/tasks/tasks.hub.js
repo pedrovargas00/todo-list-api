@@ -1,5 +1,5 @@
 const Fields = require('./tasks.fields')
-const Service = require('./tasks.service')
+const Service = require('../services')
 
 module.exports = {
     createTask,
@@ -22,7 +22,7 @@ async function createTask(req, res) {
             label: fields.label.get()
         }
 
-        res.$data(await Service.createTask(data))
+        res.$data(await Service.Tasks.createTask(data))
 
     } catch (error) {
         res.$error(error)
@@ -39,7 +39,7 @@ async function getTasks(req, res) {
             status: req.query.status
         }
 
-        res.$data(await Service.getTasks(query))
+        res.$data(await Service.Tasks.getTasks(query))
 
     } catch (error) {
         res.$error(error)
@@ -55,7 +55,7 @@ async function getTask(req, res) {
             taskId: fields.taskId.get()
         }
 
-        res.$data(await Service.getTask(data.taskId))
+        res.$data(await Service.Tasks.getTask(data.taskId))
 
     } catch (error) {
         res.$error(error)
@@ -82,7 +82,7 @@ async function updateTask(req, res) {
                 data[field] = req.body[field]
         })
         
-        res.$data(await Service.updateTask(data.taskId, data))
+        res.$data(await Service.Tasks.updateTask(data.taskId, data))
 
     } catch (error) {
         res.$error(error)
@@ -98,7 +98,7 @@ async function deleteTask(req, res) {
             taskId: fields.taskId.get()
         }
 
-        res.$data(await Service.deleteTask(data.taskId))
+        res.$data(await Service.Tasks.deleteTask(data.taskId))
         
     } catch (error) {
         res.$error(error)

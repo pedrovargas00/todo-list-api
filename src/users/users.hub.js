@@ -1,7 +1,8 @@
 const Fields = require("./users.fields")
-const Service = require('./users.service')
+const Service = require('../services')
 
 module.exports = {
+    loginUser,
     createUser,
     getUsers,
     getUser,
@@ -9,20 +10,21 @@ module.exports = {
     deleteUser
 }
 
-// async function loginUser(req, res) {
-//     try {
-//        const fields = new Fields(req)
-//        const data = {
-//            email: fields.email.get(),
-//            password: fields.password.get()
-//        }
+async function loginUser(req, res) {
+    try {
+        
+       const fields = new Fields(req)
+       const data = {
+           email: fields.email.get(),
+           password: fields.password.get()
+       }
 
-//       // res.$data(await ServiceWorker.loginUser(data))
+      res.$data(await Service.Users.loginUser(data))
 
-//     } catch (error) {
-//         res.$error(error)
-//     }
-// }
+    } catch (error) {
+        res.$error(error)
+    }
+}
 
 async function createUser(req, res) {
     try {
@@ -37,7 +39,7 @@ async function createUser(req, res) {
             password: fields.password.get()
         }
 
-        res.$data(await Service.createUser(data))
+        res.$data(await Service.Users.createUser(data))
 
     } catch (error) {
         res.$error(error)
@@ -52,7 +54,7 @@ async function getUsers(req, res) {
             find: req.query.find
         }
 
-        res.$data(await Service.getUsers(query))
+        res.$data(await Service.Users.getUsers(query))
 
     } catch (error) {
         res.$error(error)
@@ -68,7 +70,7 @@ async function getUser(req, res) {
             userId: field.userId.get()
         }
 
-        res.$data(await Service.getUser(data.userId))
+        res.$data(await Service.Users.getUser(data.userId))
 
     } catch (error) {
         res.$error(error)
@@ -96,7 +98,7 @@ async function updateUser(req, res) {
                 data[field] = req.body[field]
         })
         
-        res.$data(await Service.updateUser(data.userId, data))
+        res.$data(await Service.Users.updateUser(data.userId, data))
 
     } catch (error) {
         res.$error(error)
@@ -111,7 +113,7 @@ async function deleteUser(req, res) {
             userId: fields.userId.get()
         }
 
-        res.$data(await Service.deleteUser(data.userId))
+        res.$data(await Service.Users.deleteUser(data.userId))
 
     } catch (error) {
         res.$error(error)
