@@ -1,52 +1,44 @@
 const Schema = require('mongoose').Schema
 const Model = require('mongoose').model
-const Messages = require('./users.messages')
-const Encrypt = require('../encrypt')
+const ObjectId = require('mongoose').Types.ObjectId
+const Messages = require('./tasks.messages')
 
 const schema = new Schema({
-    firstName: {
-        type: String
-    },
     
-    lastName: {
-        type: String
+    userId: {
+        type: ObjectId
     },
-    
+
     name: {
         type: String
     },
-    
-    email: {
+
+    date: {
+        type: Date
+    },
+
+    description: {
         type: String
     },
-    
-    phone: {
+
+    label: {
         type: String
     },
-    
-    password: {
+
+    status: {
         type: String,
-        select: false
+        enum: ['enabled', 'completed'],
+        default: 'enabled'
     },
-    
+
     updated: {
         type: Date
     },
-    
+
     created: {
         type: Date,
         default: Date.now
     }
-})
-
-schema.pre('save', function(next) {
-
-    this.name = `${ this.firstName} ${ this.lastName }`
-    this.updated = new Date()
-
-    if (this.password)
-        this.password = Encrypt.bcryptHash(this.password)
-    next()
 })
 
 schema.post('save', function(error, doc, next) {
@@ -69,4 +61,4 @@ schema.post('remove', function(error, doc, next) {
     next()
 })
 
-module.exports = Model('User', schema)
+module.exports = Model('Task', schema)
