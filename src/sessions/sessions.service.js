@@ -78,7 +78,7 @@ async function deleteSession(sessionId) {
     }
 }
 
-async function findSession() {
+async function findSession(token) {
     try {
         
         return await Model.findOne({ token })

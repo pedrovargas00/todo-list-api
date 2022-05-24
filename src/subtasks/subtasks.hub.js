@@ -33,7 +33,7 @@ async function getSubtasks(req, res) {
         const query = {
             page: parseInt(req.query.page || 0),
             find: req.query.find,
-            taskId:req.query.taskId,
+            taskId: req.query.taskId,
             status: req.query.status
         }
 

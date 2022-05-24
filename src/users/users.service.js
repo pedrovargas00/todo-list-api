@@ -21,6 +21,7 @@ async function loginUser(data) {
 
         if (!user)
             throw Messages(data.email).userNotFound
+        
         if (!Encrypt.bcryptCompare(data.password, user.password))
             throw Messages(data.password).userPasswordError
         

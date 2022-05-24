@@ -1,14 +1,15 @@
 const Hub = require('./tasks.hub')
 const Router = require('express').Router()
+const Middlewares = require('../middlewares')
 
-Router.get('/task', Hub.getTask)
+Router.get('/task', Middlewares.auth, Hub.getTask)
 
-Router.get('/tasks', Hub.getTasks)
+Router.get('/tasks', Middlewares.auth, Hub.getTasks)
 
-Router.post('/task', Hub.createTask)
+Router.post('/task', Middlewares.auth, Hub.createTask)
 
-Router.put('/task/:taskId', Hub.updateTask)
+Router.put('/task/:taskId', Middlewares.auth, Hub.updateTask)
 
-Router.delete('/task/:taskId', Hub.deleteTask)
+Router.delete('/task/:taskId', Middlewares.auth, Hub.deleteTask)
 
 module.exports = Router

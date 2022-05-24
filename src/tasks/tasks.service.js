@@ -41,6 +41,7 @@ async function getTasks(query) {
 
         if (query.userId)
             options.userId = query.userId
+        
         if (query.status)
             options.status = query.status
 
@@ -84,6 +85,7 @@ async function updateTask(taskId, data) {
         const fields = Object.keys(data)
 
         fields.forEach(field => task[field] = data[field])
+        
         return await task.save()
 
     } catch (error) {

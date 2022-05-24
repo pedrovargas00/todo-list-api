@@ -21,6 +21,11 @@ const schema = new Schema({
         type: String
     },
 
+    category: {
+        type: String,
+        enum: ['Home', 'Work', 'School']
+    },
+
     label: {
         type: String
     },

@@ -33,6 +33,12 @@ module.exports = function(req) {
         name: 'descripción',
         value: props.description
     })
+
+    this.category = validator({
+        type: 'string',
+        name: 'categoría',
+        value: props.category
+    })
     
     this.label = validator({
         type: 'string',

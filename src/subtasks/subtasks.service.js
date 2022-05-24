@@ -40,6 +40,7 @@ async function getSubtasks(query) {
 
        if (query.taskId)
             options.taskId = query.taskId
+            
         if (query.status)
             options.status = query.status
 
