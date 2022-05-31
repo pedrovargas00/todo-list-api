@@ -36,7 +36,8 @@ async function createUser(req, res) {
             lastName: fields.lastName.get(),
             email: fields.email.get(),
             phone: fields.phone.get(),
-            password: fields.password.get()
+            password: fields.password.get(),
+            passwordConfirm: fields.passwordConfirm.get(),
         }
 
         res.$data(await Service.Users.createUser(data))

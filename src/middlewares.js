@@ -13,22 +13,22 @@ async function auth(req, res, next) {
         const token = req.headers.token
 
         if (!token)
-            res.$error(Messages().tokenRequiredError)
+            return res.$error(Messages().tokenRequiredError)
 
         const session = await Services.Sessions.findSession(token)
         
         if (!session)
-            res.$error(Messages().tokenNotFound)
+            return res.$error(Messages().tokenNotFound)
         
         if (new Date > session.expired)
-            res.$error( Messages().tokenExpiredError )
+            return res.$error( Messages().tokenExpiredError )
 
         req.userId = session.userId 
 
         next()
 
     } catch (error) {
-        
+        res.$error(Messages().serverError)
     }
 }
 

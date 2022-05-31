@@ -47,5 +47,11 @@ module.exports = function(req) {
         value: props.password
     })
 
+    this.passwordConfirm = validator({
+        type: 'string',
+        name: 'contraseña confirmada',
+        value: props.passwordConfirm
+    })
+
     return this
 }

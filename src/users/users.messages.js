@@ -35,6 +35,13 @@ module.exports = function($details, $message) {
             key: 'userPasswordError',
             message: $message || 'La contraseña es incorrecta',
             $details
+        },
+
+        userPasswordConfirmError: {
+            code: 404,
+            key: 'userPasswordConfirmError',
+            message: $message || 'La contraseña no es igual',
+            $details
         }
     }
 }

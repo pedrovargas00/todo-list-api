@@ -45,6 +45,9 @@ async function loginUser(data) {
 
 async function createUser(data) {
     try {
+        
+        if (data.password !== data.passwordConfirm)
+            throw Messages(data.passwordConfirm).userPasswordConfirmError
 
         const user = new Model(data)
 

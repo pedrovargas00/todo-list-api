@@ -24,6 +24,7 @@ async function createTask(data) {
 }
 
 async function getTasks(query) {    
+    
     try {
 
         const options = {}
@@ -49,7 +50,7 @@ async function getTasks(query) {
             .skip(limit * page)
             .limit(limit)
             .sort({created: -1})
-
+        console.log(tasks);
         const total = await Model.countDocuments(options)
 
         return {

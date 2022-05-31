@@ -15,7 +15,7 @@ async function createTask(req, res) {
         const fields = new Fields(req)
 
         const data = {
-            userId: fields.userId.get(),
+            userId: req.userId,
             name: fields.name.get(),
             date: new Date(),
             description: fields.description.get(),
@@ -36,7 +36,7 @@ async function getTasks(req, res) {
         const query = {
             page: parseInt(req.query.page || 0),
             find: req.query.find,
-            userId: req.query.userId,
+            userId: req.userId,
             status: req.query.status
         }
 
